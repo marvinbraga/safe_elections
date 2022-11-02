@@ -64,3 +64,25 @@ def down(c):
     """
     cmd = f"{DC_CMD} down -v --remove-orphans"
     c.run(cmd)
+
+
+@task
+def logs(c, args="api"):
+    """
+    Docker logs
+    :param c: Context
+    :param args: Service name
+    :return: None
+    """
+    cmd = f'{DC_CMD} logs --tail 200 -f {args}'
+    c.run(cmd)
+
+
+@task
+def status(c):
+    """
+    Docker ps
+    :param c: Context
+    :return: None
+    """
+    c.run(f"{DC_CMD} ps")
