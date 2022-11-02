@@ -27,3 +27,65 @@ pre-commit = "^2.20.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+known_django = "django"
+skip = "app/wsgi.py"
+skip_glob = "*migrations*"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+combine_as_imports = true
+line_length = 88
+
+[tool.black]
+py37 = true
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | venv
+)/
+'''
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "*.migrations.*"
+ignore_errors = true
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "app.settings"
+python_files = ["test_*.py"]
+addopts = ["--no-migrations", "--reuse-db", "-s"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["."]
+omit = [
+    "*__init__*",
+    "*migrations*",
+    "*test*",
+    "*/asgi.py",
+    "*/wsgi.py",
+    "*/settings.py",
+    "*/celery.py",
+    "scripts/*",
+    "static/*",
+    "staticfiles/*",
+    "manage.py",
+    "tasks.py",
+]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
