@@ -8,7 +8,10 @@ env = environ.Env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = env("SECRET_KEY",  default="django-insecure-&!nk5x=^&lk648ae11q7!+%e062z#(lj%!hwk*mn#&*psxet#l")
+SECRET_KEY = env(
+    "SECRET_KEY",
+    default="django-insecure-&!nk5x=^&lk648ae11q7!+%e062z#(lj%!hwk*mn#&*psxet#l",
+)
 
 DEBUG = env.bool("DEBUG", True)
 
@@ -83,7 +86,7 @@ SITE_ID = 1
 
 STATIC_URL = "/staticfiles/"
 STATIC_ROOT = os.path.join(ROOT_DIR, "staticfiles")
-STATICFILES_DIRS = []
+STATICFILES_DIRS = (BASE_DIR / "staticfiles",)
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
@@ -108,15 +111,15 @@ LOGGING = {
     "formatters": {
         "verbose": {
             "format": "%(levelname)s %(name)-12s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
-        }
+            "%(process)d %(thread)d %(message)s",
+        },
     },
     "handlers": {
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
             "formatter": "verbose",
-        }
+        },
     },
     "root": {"level": "INFO", "handlers": ["console"]},
 }

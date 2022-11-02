@@ -1,5 +1,6 @@
 from pathlib import Path
-from invoke import Context, task
+
+from invoke import task
 
 PROJECT_ROOT = Path(__file__).parent.absolute()
 
@@ -17,7 +18,10 @@ def build(c, dev=False):
     """
     cmd = " ".join(
         [
-            "poetry export", "--without-hashes", "-f requirements.txt", "-o requirements.txt",
+            "poetry export",
+            "--without-hashes",
+            "-f requirements.txt",
+            "-o requirements.txt",
         ],
     )
     c.run(cmd, pty=True)
