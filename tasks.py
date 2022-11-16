@@ -74,7 +74,7 @@ def logs(c, args="api"):
     :param args: Service name
     :return: None
     """
-    cmd = f'{DC_CMD} logs --tail 200 -f {args}'
+    cmd = f"{DC_CMD} logs --tail 200 -f {args}"
     c.run(cmd)
 
 
