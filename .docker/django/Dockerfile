@@ -46,9 +46,8 @@ COPY ./.docker/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
 
-RUN mkdir -p staticfiles && python manage.py collectstatic --noinput
-
-RUN useradd --create-home local_user
-USER local_user
+#RUN useradd --create-home local_user
+#USER local_user
+#RUN chown -R ${USER}:${USER} .
 
 ENTRYPOINT ["/entrypoint"]

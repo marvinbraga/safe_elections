@@ -86,3 +86,13 @@ def status(c):
     :return: None
     """
     c.run(f"{DC_CMD} ps")
+
+
+@task
+def shell(c):
+    """
+    Docker-compose shell
+    :param c: Context
+    :return: None
+    """
+    c.run(f"{DC_CMD} run --rm api python3 manage.py shell_plus")
