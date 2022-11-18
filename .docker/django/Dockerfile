@@ -30,9 +30,11 @@ RUN : \
     && rm -rf /var/lib/apt/lists/* \
     && :
 
-COPY . /code/
+RUN mkdir -p /usr/code
 
-WORKDIR /code
+COPY . /usr/code
+
+WORKDIR /usr/code
 
 ENV PATH=/venv/bin:$PATH \
     PYTHONOPTIMIZE=1 \

@@ -7,5 +7,6 @@ set -o nounset
 mkdir -p staticfiles
 
 python3 manage.py migrate --no-input
+python3 manage.py createcachetable
 python3 manage.py collectstatic --noinput
-gunicorn app.wsgi --bind 0.0.0.0:8000 --chdir=/code
+gunicorn app.wsgi --bind 0.0.0.0:8000 --chdir=/usr/code

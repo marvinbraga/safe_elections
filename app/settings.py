@@ -6,8 +6,7 @@ import environ
 env = environ.Env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-ROOT_DIR = Path(__file__).resolve().parent.parent.parent
-APPS_DIR = os.path.join(ROOT_DIR, "core")
+APPS_DIR = os.path.join(BASE_DIR, "core")
 
 SECRET_KEY = env(
     "SECRET_KEY",
@@ -89,15 +88,14 @@ USE_TZ = True
 SITE_ID = 1
 
 STATIC_URL = "/staticfiles/"
-STATIC_ROOT = os.path.join(ROOT_DIR, "staticfiles")
-STATICFILES_DIRS = (BASE_DIR / "staticfiles",)
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
 MEDIA_URL = "/mediafiles/"
-MEDIA_ROOT = os.path.join(ROOT_DIR, "mediafiles")
+MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

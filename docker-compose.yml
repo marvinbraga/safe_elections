@@ -14,9 +14,8 @@ services:
     expose:
       - "8000"
     volumes:
-      - .:/code
-      - static_volume:/code/staticfiles
-      - media_volume:/code/mediafiles
+      - ./staticfiles:/usr/code/staticfiles:rw
+      - ./mediafiles:/usr/code/mediafiles:rw
     env_file:
       - .env
     depends_on:
@@ -29,7 +28,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - .env
+      POSTGRES_USER: scott
+      POSTGRES_PASSWORD: tiger
+      POSTGRES_DB: safe_elections
     ports:
       - "5432:5432"
     networks:
@@ -37,8 +38,8 @@ services:
 
   nginx:
     volumes:
-      - static_volume:/code/staticfiles
-      - media_volume:/code/mediafiles
+      - ./staticfiles:/usr/code/staticfiles:ro
+      - ./mediafiles:/usr/code/mediafiles:ro
     build:
       context: ./.docker/nginx
       dockerfile: Dockerfile
@@ -47,8 +48,6 @@ services:
     networks:
       - api-network
     restart: always
-    depends_on:
-      - api
 
 networks:
   api-network:
@@ -56,5 +55,3 @@ networks:
 
 volumes:
   postgres_data:
-  static_volume:
-  media_volume:

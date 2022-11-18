@@ -95,4 +95,21 @@ def shell(c):
     :param c: Context
     :return: None
     """
-    c.run(f"{DC_CMD} run --rm api python3 manage.py shell_plus")
+    c.run(f"{DC_CMD} exec api python3 manage.py shell")
+
+
+@task(down)
+def prune(c, restart=False):
+    """
+    Docker-compose shell
+    :param restart:
+    :param c: Context
+    :return: None
+    """
+    print("Cleaning docker images...")
+    c.run("docker system prune --all", pty=True)
+    print("Cleaning docker volumes...")
+    c.run("docker volume prune", pty=True)
+    if restart:
+        print("Restarting docker service...")
+        c.run("sudo service docker restart", pty=True)
