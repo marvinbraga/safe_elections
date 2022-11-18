@@ -89,13 +89,13 @@ def status(c):
 
 
 @task
-def shell(c):
+def sh(c):
     """
     Docker-compose shell
     :param c: Context
     :return: None
     """
-    c.run(f"{DC_CMD} exec api python3 manage.py shell")
+    c.run(f"{DC_CMD} exec api bash", pty=True)
 
 
 @task(down)

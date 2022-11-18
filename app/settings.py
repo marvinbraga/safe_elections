@@ -2,20 +2,22 @@ import os
 from pathlib import Path
 
 import environ
+from decouple import config
 
 env = environ.Env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 APPS_DIR = os.path.join(BASE_DIR, "core")
 
-SECRET_KEY = env(
+SECRET_KEY = config(
     "SECRET_KEY",
     default="django-insecure-&!nk5x=^&lk648ae11q7!+%e062z#(lj%!hwk*mn#&*psxet#l",
+    cast=str,
 )
 
-DEBUG = env.bool("DEBUG", True)
+DEBUG = config("DEBUG", default=True, cast=bool)
 
-ALLOWED_HOSTS = env.str("ALLOWED_HOSTS", default="*").split(",")
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="*,localhost", cast=str).split(",")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -59,7 +61,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "app.wsgi.application"
 
-DATABASES = {"default": env.db("DATABASE_URL", "sqlite:///database.sqlite3")}
+DB_STR = config(
+    "DATABASE_URL",
+    default="postgres://scott:tiger@localhost:5432/safe_elections",
+    cast=str,
+)
+DATABASES = {"default": env.db("DATABASE_URL", DB_STR)}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 AUTH_PASSWORD_VALIDATORS = [

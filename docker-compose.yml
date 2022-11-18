@@ -6,8 +6,6 @@ services:
     command: dockerize -wait tcp://db:5432
     depends_on:
       - db
-    networks:
-      - api-network
 
   api:
     image: safe_elections
@@ -20,8 +18,6 @@ services:
       - .env
     depends_on:
       - wait-services
-    networks:
-      - api-network
 
   db:
     image: postgres:14-alpine
@@ -33,8 +29,6 @@ services:
       POSTGRES_DB: safe_elections
     ports:
       - "5432:5432"
-    networks:
-      - api-network
 
   nginx:
     volumes:
@@ -45,13 +39,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8081:80"
-    networks:
-      - api-network
     restart: always
-
-networks:
-  api-network:
-    driver: bridge
 
 volumes:
   postgres_data:

@@ -144,3 +144,4 @@ cython_debug/
 # Django
 staticfiles/
 mediafiles/
+*.sqlite3
