@@ -1,12 +1,9 @@
 .dockerignore
-.editorconfig
-.env.example
 .flake8
 .git
 .gitignore
 .mypy_cache
 .pre-commit-config.yaml
-.venv
 Dockerfile
 docker-compose.yml
 poetry.lock
