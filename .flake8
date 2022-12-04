@@ -2,4 +2,4 @@
 max-line-length=120
 exclude="src/wsgi.py"
 max-complexity = 10
-ignore = "E231"
+ignore = "E231"  # Missing whitespace after ',', ';', or ':'
